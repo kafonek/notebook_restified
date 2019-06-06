@@ -15,7 +15,7 @@ class Restified(JupyterHandler):
     def get(self, path=''):
         nb_path = path.lstrip('/')
         parameters = {k : self.get_argument(k) for k in self.request.arguments}
-        result = execute_notebook(nb_path, parameters, drop_override=False)
+        result = execute_notebook(nb_path, parameters)
         try:
             self.finish(json.dumps(result))
         except:
