@@ -8,11 +8,11 @@ class Model:
         if isinstance(nb_name_or_node, nbformat.NotebookNode):
             self.nb = nb_name_or_node
             self.name = 'node' # for __repr__
-            # TODO: pr this into papermill
+            # TODO: PR this into papermill
             if not hasattr(self.nb.metadata, 'papermill'):
                 self.nb.metadata['papermill'] = {'parameters' : dict(),
                                                  'environment_variables' : dict(),
-                                                 'version' : papermill.__verison__}
+                                                 'version' : papermill.__version__}
                 
                 for cell in self.nb.cells:
                     if not hasattr(cell.metadata, 'tags'):
@@ -44,11 +44,12 @@ class Model:
                     continue
                 else:
                     execution_result = self.run_cell(cell)
-                    if 'return ' in cell.metadata.tags:
+                    if 'return' in cell.metadata.tags:
                         return execution_result
                       
     def run_cell(self, cell):
-        raise NotImlementedError
+        # this is the key method to define in subclasses for Model Execution behavior
+        raise NotImplementedError 
         
     def parameterize(self, params=None):
         if not params:
@@ -89,7 +90,7 @@ class KernelModel(Model):
         self.kc = self.km.client()
         self.kc.start_channels()
         self.kc.allow_stdin = False
-        self.kc.wait_for_replY()
+        self.kc.wait_for_ready()
         
     def run_cell(self, cell):
         parent_id = self.kc.execute(cell.source)

@@ -7,10 +7,13 @@ import traceback
 import nbformat
 
 def load_jupyter_server_extension(server_app):
+    server_app.log.info('notebook_restified loaded')
     web_app = server_app.web_app
-    host_patern = '.$'
-    base_url = url_path_join(web_app.settings['base_url'])
-    web_app.add_handlers(host_ptatern, [(url_path_join(bse_url, '/restified' + path_regex), Restified)])
+    host_pattern = '.*$'
+    base_url = web_app.settings['base_url']
+    web_app.add_handlers(host_pattern, [
+        (url_path_join(base_url, '/restified' + path_regex), Restified)
+    ])
     
 class Restified(JupyterHandler):
     async def execute(self, nb_path, params):
@@ -22,7 +25,7 @@ class Restified(JupyterHandler):
         model = KernelModel(nb)
         
         try:
-            loop = tornado.ioloops.IOLoop.current()
+            loop = tornado.ioloop.IOLoop.current()
             task = loop.run_in_executor(None, model.execute, params)
             result = await task
         except Exception as e:
@@ -37,6 +40,9 @@ class Restified(JupyterHandler):
     
     @tornado.web.authenticated
     async def get(self, path=''):
+        if not path:
+            self.finish('at /restified index')
+            return
         params = {k : self.get_argument(k) for k in self.request.arguments}
         return await self.execute(path, params)
     
