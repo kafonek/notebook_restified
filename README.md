@@ -1,9 +1,19 @@
 ### Overview
-`notebook_restified` is a library for executing Jupyter Notebooks as if they were functions.  It is inspired by [papermill](https://github.com/nteract/papermill), [ipython_blocking](https://github.com/kafonek/ipython_blocking), an orgazational goal of running Notebooks as REST endpoints, and numerous conversations about how to separate the Model and the View when it comes to 'MVC in Jupyter'.
+`notebook_restified` is a library for thinking about Jupyter Notebooks in the context of the [Model-View-Controller](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) framework.  It can take a [papermill](https://github.com/nteract/papermill)-parameterized Notebook and execute that Notebook as if it were a function or as a REST endpoint.  
 
-`notebook_restified` uses Notebook cell tags to parameterize Notebooks and to determine the return value of a Notebook.  'Model' Notebooks can be run from other 'View' Notebooks using the `execute_notebook(nb_path, parameters, overrides)` function, or run RESTfully through the `/restified/` server endpoint with parameters passed in as url arguments.
+A typical workflow for our Notebook authors goes like this:
+ 
+ 1. Explore a problem space in a Jupyter Notebook and develop a prototype solution.  Love the interactive and introspective nature of Jupyter here!
+ 2. Once a workflow is created and documented, refactor it into a Notebook that has widgets for user input and which can hide the code from end users who don't want to see the code (or are even uncomfortable seeing code).
+   * We are targeting [Voila](https://github.com/QuantStack/voila) as a 'Dashboarding' solution here.
+ 3. Possibly also refactor the Notebook into something that can be run programmatically as a REST endpoint.
+ 4. A user reports an error!  Or a new feature needs to be added.. or something else that requires the Notebook author to return to the interactive, introspective, exploratory, and explanatory Notebook style.  
+ 5. rinse and repeat
+ 
+ 
+`notebook_restified` hopes to reduce the time and frustration spent on refactoring code solely to handle the context switching between an "exploratory" Notebook and a "production" Notebook (perhaps "Dashboard" Notebook is a better term here).    
 
-Please look at the demo Notebooks in the following Binder link for hands-on examples of how to use `notebook_restified`.
+### Binder demos
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/kafonek/notebook_restified/master?filepath=demo)
 
