@@ -3,3 +3,4 @@ voila
 tqdm
 jupyter_contrib_nbextensions
 jupyter_nbextensions_configurator
+ipywidgets>=7.5
