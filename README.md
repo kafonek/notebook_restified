@@ -1,3 +1,5 @@
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/kafonek/notebook_restified/master?filepath=demo)
+
 ### Introduction
 `notebook_restified` is a library that thinks about Jupyter Notebooks as stand-alone functions with *input parameters* and a *return* value suitable to be used as REST endpoints or as callback functions within other Notebooks.  Put another way, `notebook_restified` tries to implement a [Model-View-Controller](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) context in the Jupyter framework.  It leverages [papermill](https://github.com/nteract/papermill) for reading and parameterizing Notebook files, and is inspired by some of the same goals behind [ipython_blocking](https://github.com/kafonek/ipython_blocking).
 
@@ -21,12 +23,6 @@ Finally, when something goes wrong in step Three or the Notebook author wants to
 
 `notebook_restified` tries to thread the needle between the three general ways that we use Notebooks: interactive mode, widgetized Dashboards, and as a REST API.  
 
-
-### Binder demos
-
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/kafonek/notebook_restified/master?filepath=demo)
-
-More demo's to come.
 
 ### Install
 `notebook_restified` is on Pypi, install it with pip:
